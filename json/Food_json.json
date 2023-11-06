@@ -1,0 +1,122 @@
+[
+    {
+        "FoodName": "Chicken Biryani",
+        "FoodImage": "https://i.ibb.co/gPqk9fs/chicken-biryani.png",
+        "FoodCategory": "Rice",
+        "FoodCategoryImage": "https://i.ibb.co/9vM5PCz/Rice.jpg",
+        "Price": 9.99,
+        "Rating": 4.8,
+        "Quantity": 100,
+        "Description": "A flavorful and aromatic rice dish cooked with chicken, spices, and herbs.",
+        "Count": 1,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Beef Bhuna",
+        "FoodImage": "https://i.ibb.co/TkJt0kQ/beef-bhuna.jpg",
+        "FoodCategory": "Curry",
+        "FoodCategoryImage": "https://i.ibb.co/CnFqGjV/Curry.jpg",
+        "Price": 11.49,
+        "Rating": 4.6,
+        "Quantity": 80,
+        "Description": "Slow-cooked spicy beef curry with onions, tomatoes, and various spices.",
+        "Count": 2,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Prawn Masala",
+        "FoodImage": "https://i.ibb.co/Kwq954c/prawn-curry.webp",
+        "FoodCategory": "Seafood",
+        "FoodCategoryImage": "https://i.ibb.co/c36V6j5/seafood-dish.jpg",
+        "Price": 13.99,
+        "Rating": 4.7,
+        "Quantity": 90,
+        "Description": "Prawns cooked in a rich and flavorful masala sauce with aromatic spices.",
+        "Count": 3,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Vegetable Pulao",
+        "FoodImage": "https://i.ibb.co/c6DBpGR/Vegetable-Pulao.jpg",
+        "FoodCategory": "Rice",
+        "FoodCategoryImage": "https://i.ibb.co/9vM5PCz/Rice.jpg",
+        "Price": 8.99,
+        "Rating": 4.5,
+        "Quantity": 110,
+        "Description": "Fragrant rice dish cooked with mixed vegetables, spices, and ghee.",
+        "Count": 4,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Paneer Butter Masala",
+        "FoodImage": "https://i.ibb.co/QDQC9w8/Paneer-Butter-Masala.webp",
+        "FoodCategory": "Vegetarian",
+        "FoodCategoryImage": "https://i.ibb.co/4YnyJbc/Vegetarian.webp",
+        "Price": 10.49,
+        "Rating": 4.9,
+        "Quantity": 95,
+        "Description": "Creamy and rich curry made with paneer (Indian cottage cheese) and buttery tomato sauce.",
+        "Count": 1,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Dal Tadka",
+        "FoodImage": "https://i.ibb.co/hFVZZnK/Dal-Tadka.jpg",
+        "FoodCategory": "Vegetarian",
+        "FoodCategoryImage": "https://i.ibb.co/4YnyJbc/Vegetarian.webp",
+        "Price": 6.99,
+        "Rating": 4.4,
+        "Quantity": 120,
+        "Description": "Yellow lentils tempered with ghee, cumin seeds, and garlic, a comforting vegetarian dish.",
+        "Count": 2,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Mutton Korma",
+        "FoodImage": "https://i.ibb.co/NWD9Mdx/Mutton-Korma.webp",
+        "FoodCategory": "Curry",
+        "FoodCategoryImage": "https://i.ibb.co/CnFqGjV/Curry.jpg",
+        "Price": 12.99,
+        "Rating": 4.6,
+        "Quantity": 85,
+        "Description": "Tender mutton pieces cooked in a rich and creamy korma sauce with nuts and yogurt.",
+        "Count": 3,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Fish Curry",
+        "FoodImage": "https://i.ibb.co/1MgFhKG/Fish-Curry.webp",
+        "FoodCategory": "Seafood",
+        "FoodCategoryImage": "https://i.ibb.co/c36V6j5/seafood-dish.jpg",
+        "Price": 14.99,
+        "Rating": 4.7,
+        "Quantity": 75,
+        "Description": "Spicy and tangy fish curry made with fresh fish, tamarind, and traditional spices.",
+        "Count": 4,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Egg Bhurji",
+        "FoodImage": "https://i.ibb.co/jZSrm5P/Egg-Bhurji.jpg",
+        "FoodCategory": "Egg",
+        "FoodCategoryImage": "https://i.ibb.co/dLkGZ4W/Eggs.webp",
+        "Price": 7.49,
+        "Rating": 4.3,
+        "Quantity": 100,
+        "Description": "Scrambled eggs cooked with onions, tomatoes, and spices, a popular Indian egg dish.",
+        "Count": 1,
+        "Country": "Bangladesh"
+    },
+    {
+        "FoodName": "Mixed Vegetable Curry",
+        "FoodImage": "https://i.ibb.co/nCMPsBw/mixed-vegetable.jpg",
+        "FoodCategory": "Vegetarian",
+        "FoodCategoryImage": "https://i.ibb.co/4YnyJbc/Vegetarian.webp",
+        "Price": 9.49,
+        "Rating": 4.5,
+        "Quantity": 105,
+        "Description": "Assorted vegetables cooked in a flavorful curry sauce, a wholesome vegetarian dish.",
+        "Count": 2,
+        "Country": "Bangladesh"
+    }
+]
