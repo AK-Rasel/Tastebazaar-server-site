@@ -52,15 +52,24 @@ async function run() {
     }
 
 
-    // All Service Dta
+    // All Service Data
     app.get('/all-food-items', async (req, res) => {
       const cursor = FoodCollection.find()
       const result = await cursor.toArray()
       res.send(result)
     });
+    
+    // Add food
+    app.post('/all-food-items', async (req, res) => {
+      const addFoodData = req.body;
+      console.log(addFoodData)
+      const result = await FoodCollection.insertOne(addFoodData)
+      res.send(result)
+
+    })
 
 
-    //  single pages
+    //  single pages data
     app.get("/all-food-items/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) }
@@ -71,11 +80,8 @@ async function run() {
     // purchase get
     app.get('/all-food-items/purchase-detail/:id', async (req, res) => {
       // console.log(req.params)
-
       const id = req.params.id
-      // console.log(id)
       const query = { _id: new ObjectId(id) }
-
       const result = await FoodCollection.findOne(query)
       res.send(result)
     });
@@ -83,14 +89,15 @@ async function run() {
     // purchase post
     app.post('/purchase', async (req, res) => {
       const purchaseData = req.body;
-      console.log(purchaseData)
+      // console.log(purchaseData)
       const result = await purchaseCollection.insertOne(purchaseData)
       res.send(result)
 
     })
+   
     // user specific order get
     app.get('/purchase', async (req, res) => {
-      console.log(req.query.email)
+      // console.log(req.query.email)
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email }
@@ -98,45 +105,55 @@ async function run() {
       const result = await purchaseCollection.find(query).toArray()
       res.send(result)
     })
-    // user specific my-added-food-items
-    app.get('/user/my-added-food-items/', async (req, res) => {
-      // console.log(req)
-      const queryEmail = req.query.email;
-      const emailToken = req.user.email
-
-      // // match email
-      if (queryEmail !== emailToken) {
-
-        return res.status(403).send({ message: 'forbidden access' })
-      }
-
-      let query = {}
-      if (queryEmail) {
-        query.email = queryEmail
-      }
-
-      const result = await purchaseCollection.find(query).toArray()
-      res.send(result)
-    })
-
-
-    // user
-    app.delete('/user/delete-food-item/:id', async (req, res) => {
+     // Ordered delete
+     app.delete('/purchase:id',async (req,res) => {
       const id = req.params.id
-      const query = { _id: new ObjectId(id) }
+      console.log(id)
+      const query = {_id: new ObjectId(id)}
       const result = await purchaseCollection.deleteOne(query)
       res.send(result)
     })
+
+
+    // user specific my-added-food-items
+    // app.get('/user/my-added-food-items/', async (req, res) => {
+    //   // console.log(req)
+    //   const queryEmail = req.query.email;
+    //   const emailToken = req.user.email
+
+    //   // // match email
+    //   if (queryEmail !== emailToken) {
+
+    //     return res.status(403).send({ message: 'forbidden access' })
+    //   }
+
+    //   let query = {}
+    //   if (queryEmail) {
+    //     query.email = queryEmail
+    //   }
+
+    //   const result = await purchaseCollection.find(query).toArray()
+    //   res.send(result)
+    // })
+
+
+    // user
+    // app.delete('/user/delete-food-item/:id', async (req, res) => {
+    //   const id = req.params.id
+    //   const query = { _id: new ObjectId(id) }
+    //   const result = await purchaseCollection.deleteOne(query)
+    //   res.send(result)
+    // })
     // token client
-    app.post('/auth/token', (req, res) => {
-      const user = req.body
-      const token = jwt.sign(user, tokenSecret, { expiresIn: 60 * 60 })
-      res.cookie('token', token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'none'
-      }).send({ success: true })
-    })
+    // app.post('/auth/token', (req, res) => {
+    //   const user = req.body
+    //   const token = jwt.sign(user, tokenSecret, { expiresIn: 60 * 60 })
+    //   res.cookie('token', token, {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: 'none'
+    //   }).send({ success: true })
+    // })
 
 
 
