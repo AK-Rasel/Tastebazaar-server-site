@@ -32,7 +32,7 @@ async function run() {
     await client.connect();
     // mongodb Collection
     const FoodCollection = client.db('tasteBazaar').collection('foodItems');
-    const UserAddFoodItemsCollection = client.db('tasteBazaar').collection('user');
+    const UserAddFoodItemsCollection = client.db('tasteBazaar').collection('purchaseHandler');
 
     // verify token
     const watchmen = (req, res,next) => {
@@ -53,7 +53,7 @@ async function run() {
 
 
     // All Service Dta
-    app.get('/api/v1/all-food-items', async (req, res) => {
+    app.get('/all-food-items', async (req, res) => {
       const cursor = FoodCollection.find()
       const result = await cursor.toArray()
       res.send(result)
@@ -61,7 +61,7 @@ async function run() {
 
 
 //  single pages
-app.get("/api/v1/all-food-items/:id", async (req,res) => {
+app.get("/all-food-items/:id", async (req,res) => {
   const id = req.params.id;
   const query = {_id: new ObjectId(id)}
   const result = await FoodCollection.findOne(query);
@@ -71,7 +71,7 @@ app.get("/api/v1/all-food-items/:id", async (req,res) => {
 
 
     // purchase
-    app.get('/api/v1/all-food-items/purchase-detail/:id', async (req, res) => {
+    app.get('/all-food-items/purchase-detail/:id', async (req, res) => {
       console.log(req.params)
 
       const id = req.params.id
@@ -84,13 +84,13 @@ app.get("/api/v1/all-food-items/:id", async (req,res) => {
     
     
     // user
-    app.post('/api/v1/user/add-food-items',watchmen, async (req, res) => {
+    app.post('/user/add-food-items',watchmen, async (req, res) => {
       const addFoodData = req.body;
       const result = await UserAddFoodItemsCollection.insertOne(addFoodData)
       res.send(result)
     })
     // user specific my-added-food-items
-    app.get('/api/v1/user/my-added-food-items/', async (req, res) => {
+    app.get('/user/my-added-food-items/', async (req, res) => {
       // console.log(req)
       const queryEmail = req.query.email;
       const emailToken = req.user.email
@@ -112,14 +112,14 @@ app.get("/api/v1/all-food-items/:id", async (req,res) => {
 
 
     // user
-    app.delete('/api/v1/user/delete-food-item/:id', async (req, res) => {
+    app.delete('/user/delete-food-item/:id', async (req, res) => {
       const id = req.params.id
       const query = { _id: new ObjectId(id) }
       const result = await UserAddFoodItemsCollection.deleteOne(query)
       res.send(result)
     })
     // token client
-    app.post('/api/v1/auth/token', (req, res) => {
+    app.post('/auth/token', (req, res) => {
       const user = req.body
       const token = jwt.sign(user, tokenSecret, { expiresIn: 60 * 60 })
       res.cookie('token', token, {
