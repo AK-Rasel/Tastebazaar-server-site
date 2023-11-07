@@ -14,7 +14,7 @@ app.use(cookieParser())
 const tokenSecret = "ar_valo_lage_na_ar_code!kiarbolbo"
 
 const uri = `mongodb+srv://${process.env.SECRET_USER_NAME}:${process.env.SECRET_PASS}@cluster0.z9hqskk.mongodb.net/?retryWrites=true&w=majority`;
-// const uri = `mongodb+srv://TasteBazaar:pVLGTnxydpzDXcb4@cluster0.z9hqskk.mongodb.net/?retryWrites=true&w=majority`;
+
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -58,14 +58,31 @@ async function run() {
       const result = await cursor.toArray()
       res.send(result)
     });
-    app.get('/api/v1/all-food-items/food-detail/:id', async (req, res) => {
-      // console.log(req.params)
-      // const id = req.params.id
-      // const query = { _id: new ObjectId(id) }
 
-      // const result = await FoodCollection.findOne(query)
-      // res.send(result)
+
+//  single pages
+app.get("/api/v1/all-food-items/:id", async (req,res) => {
+  const id = req.params.id;
+  const query = {_id: new ObjectId(id)}
+  const result = await FoodCollection.findOne(query);
+  res.send(result)
+})
+
+
+
+    // purchase
+    app.get('/api/v1/all-food-items/purchase-detail/:id', async (req, res) => {
+      console.log(req.params)
+
+      const id = req.params.id
+      console.log(id)
+      const query = { _id: new ObjectId(id) }
+
+      const result = await FoodCollection.findOne(query)
+      res.send(result)
     });
+    
+    
     // user
     app.post('/api/v1/user/add-food-items',watchmen, async (req, res) => {
       const addFoodData = req.body;
@@ -92,6 +109,8 @@ async function run() {
       const result = await UserAddFoodItemsCollection.find(query).toArray()
       res.send(result)
     })
+
+
     // user
     app.delete('/api/v1/user/delete-food-item/:id', async (req, res) => {
       const id = req.params.id
