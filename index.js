@@ -32,22 +32,22 @@ async function run() {
     await client.connect();
     // mongodb Collection
     const FoodCollection = client.db('tasteBazaar').collection('foodItems');
-    const UserAddFoodItemsCollection = client.db('tasteBazaar').collection('purchaseHandler');
+    const purchaseCollection = client.db('tasteBazaar').collection('purchase');
 
     // verify token
-    const watchmen = (req, res,next) => {
+    const watchmen = (req, res, next) => {
       const { token } = req.cookies
       // if cna hoi
       if (!token) {
-        return res.status(401).send({Message:'You ar not authorized'})
+        return res.status(401).send({ Message: 'You ar not authorized' })
       }
       // verify a token symmetric
       jwt.verify(token, tokenSecret, function (err, decoded) {
-       if (err) {
-        return res.status(401).send({Message:'You ar not authorized'})
-       }
-       req.user = decoded
-       next()
+        if (err) {
+          return res.status(401).send({ Message: 'You ar not authorized' })
+        }
+        req.user = decoded
+        next()
       });
     }
 
@@ -60,33 +60,42 @@ async function run() {
     });
 
 
-//  single pages
-app.get("/all-food-items/:id", async (req,res) => {
-  const id = req.params.id;
-  const query = {_id: new ObjectId(id)}
-  const result = await FoodCollection.findOne(query);
-  res.send(result)
-})
+    //  single pages
+    app.get("/all-food-items/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await FoodCollection.findOne(query);
+      res.send(result)
+    })
 
-
-
-    // purchase
+    // purchase get
     app.get('/all-food-items/purchase-detail/:id', async (req, res) => {
-      console.log(req.params)
+      // console.log(req.params)
 
       const id = req.params.id
-      console.log(id)
+      // console.log(id)
       const query = { _id: new ObjectId(id) }
 
       const result = await FoodCollection.findOne(query)
       res.send(result)
     });
-    
-    
-    // user
-    app.post('/user/add-food-items',watchmen, async (req, res) => {
-      const addFoodData = req.body;
-      const result = await UserAddFoodItemsCollection.insertOne(addFoodData)
+
+    // purchase post
+    app.post('/purchase', async (req, res) => {
+      const purchaseData = req.body;
+      console.log(purchaseData)
+      const result = await purchaseCollection.insertOne(purchaseData)
+      res.send(result)
+
+    })
+    // user specific order get
+    app.get('/purchase', async (req, res) => {
+      console.log(req.query.email)
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email }
+      }
+      const result = await purchaseCollection.find(query).toArray()
       res.send(result)
     })
     // user specific my-added-food-items
@@ -97,16 +106,16 @@ app.get("/all-food-items/:id", async (req,res) => {
 
       // // match email
       if (queryEmail !== emailToken) {
-        
-        return res.status(403).send({message:'forbidden access'})
-        }
 
-      let query = {} 
+        return res.status(403).send({ message: 'forbidden access' })
+      }
+
+      let query = {}
       if (queryEmail) {
         query.email = queryEmail
       }
-     
-      const result = await UserAddFoodItemsCollection.find(query).toArray()
+
+      const result = await purchaseCollection.find(query).toArray()
       res.send(result)
     })
 
@@ -115,7 +124,7 @@ app.get("/all-food-items/:id", async (req,res) => {
     app.delete('/user/delete-food-item/:id', async (req, res) => {
       const id = req.params.id
       const query = { _id: new ObjectId(id) }
-      const result = await UserAddFoodItemsCollection.deleteOne(query)
+      const result = await purchaseCollection.deleteOne(query)
       res.send(result)
     })
     // token client
