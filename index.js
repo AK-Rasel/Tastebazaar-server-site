@@ -50,7 +50,16 @@ async function run() {
         next()
       });
     }
-
+  // All service user specific order get
+  app.get('/all-food-items', async (req, res) => {
+    // console.log(req.query.email)
+    let query = {};
+    if (req.query?.email) {
+      query = { email: req.query.email }
+    }
+    const result = await FoodCollection.find(query).toArray()
+    res.send(result)
+  })
 
     // All Service Data
     app.get('/all-food-items', async (req, res) => {
@@ -58,6 +67,16 @@ async function run() {
       const result = await cursor.toArray()
       res.send(result)
     });
+     //  single pages data
+     app.get("/all-food-items/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await FoodCollection.findOne(query);
+      res.send(result)
+    })
+
+    // update
+    
     
     // Add food
     app.post('/all-food-items', async (req, res) => {
@@ -67,16 +86,21 @@ async function run() {
       res.send(result)
 
     })
+    // app.patch('/all-food-items/:id', async(req, res) => {
+    //   const id = req.params.id
+    //   const updateAddFood = req.body
+    //   const filter = {_id : new ObjectId(id)}
+    //   console.log(updateAddFood)
+    //   const updateDoc ={
+    //     $set:{
+    //       status: updateAddFood.status
+    //     }
+    //   }
+    // })
+  
 
 
-    //  single pages data
-    app.get("/all-food-items/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) }
-      const result = await FoodCollection.findOne(query);
-      res.send(result)
-    })
-
+   
     // purchase get
     app.get('/all-food-items/purchase-detail/:id', async (req, res) => {
       // console.log(req.params)
@@ -94,6 +118,7 @@ async function run() {
       res.send(result)
 
     })
+     
    
     // user specific order get
     app.get('/purchase', async (req, res) => {
@@ -105,14 +130,16 @@ async function run() {
       const result = await purchaseCollection.find(query).toArray()
       res.send(result)
     })
-     // Ordered delete
-     app.delete('/purchase:id',async (req,res) => {
+    // Ordered delete
+    app.delete('/purchase/:id',async (req,res) => {
       const id = req.params.id
-      console.log(id)
+      
       const query = {_id: new ObjectId(id)}
       const result = await purchaseCollection.deleteOne(query)
       res.send(result)
     })
+
+    
 
 
     // user specific my-added-food-items
