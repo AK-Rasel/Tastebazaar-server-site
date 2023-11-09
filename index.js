@@ -6,6 +6,12 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 require('dotenv').config()
+// app.use(cors({
+//   origin:[
+//     'https://tastebazaar-2.web.app',
+//     'https://tastebazaar-2.firebaseapp.com'
+//   ]
+// }))
 app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
@@ -67,6 +73,14 @@ async function run() {
       const result = await cursor.toArray()
       res.send(result)
     });
+    
+       // paginetion
+       app.get('/all-food-items-count',async(req,res) =>{
+        const pageCount = await FoodCollection.estimatedDocumentCount()
+        res.send({pageCount})
+       })
+
+
      //  single pages data
      app.get("/all-food-items/:id", async (req, res) => {
       const id = req.params.id;
@@ -113,11 +127,12 @@ async function run() {
     // purchase post
     app.post('/purchase', async (req, res) => {
       const purchaseData = req.body;
-      // console.log(purchaseData)
+      console.log(purchaseData)
       const result = await purchaseCollection.insertOne(purchaseData)
       res.send(result)
 
     })
+ 
      
    
     // user specific order get
@@ -130,6 +145,10 @@ async function run() {
       const result = await purchaseCollection.find(query).toArray()
       res.send(result)
     })
+    app.put("/purchase/:id",async(req,res)=> {
+      console.log(req.params)
+    })
+
     // Ordered delete
     app.delete('/purchase/:id',async (req,res) => {
       const id = req.params.id
